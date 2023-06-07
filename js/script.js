@@ -18,10 +18,11 @@ if (ScrollTrigger.isTouch !== 1) {
         }
     })
 
-    let itemsL = gsap.utils.toArray('.gallery__left .gallery__item');
+   function animateGalleryItems(selector) {
+    const items = gsap.utils.toArray(selector);
 
-    itemsL.forEach(item => {
-        gsap.fromTo(item, {x: -100, opacity: 0}, {
+    items.forEach(item => {
+        gsap.fromTo(item, {x: selector.includes('left') ? -100 : 100, opacity: 0}, {
             opacity: 1,
             x: 0,
             scrollTrigger: {
@@ -30,21 +31,10 @@ if (ScrollTrigger.isTouch !== 1) {
                 end: '100',
                 scrub: true
             }
-        })
-    })
+        });
+    });
+}
 
-    let itemsR = gsap.utils.toArray('.gallery__right .gallery__item');
-
-    itemsR.forEach(item => {
-        gsap.fromTo(item, {x: 100, opacity: 0}, {
-            opacity: 1,
-            x: 0,
-            scrollTrigger: {
-                trigger: item,
-                start: '-850',
-                end: '100',
-                scrub: true
-            }
-        })
-    })
+animateGalleryItems('.gallery__left .gallery__item');
+animateGalleryItems('.gallery__right .gallery__item');
 }
